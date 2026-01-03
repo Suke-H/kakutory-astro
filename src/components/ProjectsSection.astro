@@ -3,6 +3,7 @@ import "../styles/projects-section.css";
 
 interface Props {
   header: string;
+  sectionId: string;
   projectsConfig: {
     images?: string[];
     projects: Array<{
@@ -17,7 +18,7 @@ interface Props {
   };
 }
 
-const { header, projectsConfig } = Astro.props;
+const { header, sectionId, projectsConfig } = Astro.props;
 const projects = projectsConfig.projects;
 ---
 
@@ -29,7 +30,7 @@ const projects = projectsConfig.projects;
     <div class="projects-grid">
       {projects.map((p, index) => (
         <article class="work-card">
-          <button class="card-button" type="button" data-modal-open={index}>
+          <button class="card-button" type="button" data-modal-open={`${sectionId}-${index}`}>
             <img
               class="card-img"
               src={(p.images && p.images[0]) ? p.images[0] : projectsConfig.images?.[index] ?? ""}
@@ -59,13 +60,13 @@ const projects = projectsConfig.projects;
         : (projectsConfig.images ? [projectsConfig.images[index]] : []);
 
       return (
-        <dialog class="work-modal" data-modal={index} aria-label={`${p.title} details`}>
-          <button class="modal-close" type="button" data-modal-close={index} aria-label="close">×</button>
+        <dialog class="work-modal" data-modal={`${sectionId}-${index}`} aria-label={`${p.title} details`}>
+          <button class="modal-close" type="button" data-modal-close={`${sectionId}-${index}`} aria-label="close">×</button>
 
-          <div class="slider" data-slider={index}>
-            <button class="slider-nav left" type="button" data-slide-prev={index} aria-label="prev">‹</button>
+          <div class="slider" data-slider={`${sectionId}-${index}`}>
+            <button class="slider-nav left" type="button" data-slide-prev={`${sectionId}-${index}`} aria-label="prev">‹</button>
 
-            <div class="slides" data-slides={index}>
+            <div class="slides" data-slides={`${sectionId}-${index}`}>
               {imgs.map((src, idx) => (
                 <figure class="slide" data-slide>
                   <img src={src} alt={`${p.title} - ${idx + 1}`} loading="lazy" />
@@ -73,7 +74,7 @@ const projects = projectsConfig.projects;
               ))}
             </div>
 
-            <button class="slider-nav right" type="button" data-slide-next={index} aria-label="next">›</button>
+            <button class="slider-nav right" type="button" data-slide-next={`${sectionId}-${index}`} aria-label="next">›</button>
           </div>
 
           <h3 class="modal-title">{p.title}</h3>
