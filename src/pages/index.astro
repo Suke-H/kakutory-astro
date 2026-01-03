@@ -7,6 +7,8 @@ import AboutSection from "../components/AboutSection.astro";
 import ProficiencySection from "../components/ProficiencySection.astro";
 import ProjectsSection from "../components/ProjectsSection.astro";
 import Footer from "../components/Footer.astro";
+import { gamesConfig } from "../config/games";
+import { worksConfig } from "../config/works";
 ---
 
 <html lang="en">
@@ -29,7 +31,8 @@ import Footer from "../components/Footer.astro";
     <Navigation />
     <HeroSection />
     <AboutSection />
-    <ProjectsSection />
+    <ProjectsSection header="Games" projectsConfig={gamesConfig} />
+    <ProjectsSection header="Works" projectsConfig={worksConfig} />
     <ProficiencySection />
     <Footer />
     <script>

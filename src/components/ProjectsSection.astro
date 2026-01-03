@@ -1,25 +1,29 @@
 ---
 import "../styles/projects-section.css";
-import { projectsConfig } from "../config/projects";
 
-/**
- * 想定データ形
- * projectsConfig.projects: Array<{
- *   title: string;
- *   description: string;
- *   technologies: string[];
- *   liveLink: string;
- *   githubLink: string;
- *   images: string[]; // ← ここ（なければ projectsConfig.images を流用しても可）
- *   date?: string;    // 任意
- * }>
- */
+interface Props {
+  header: string;
+  projectsConfig: {
+    images?: string[];
+    projects: Array<{
+      title: string;
+      description: string;
+      technologies: string[];
+      liveLink: string;
+      githubLink: string;
+      images?: string[];
+      date?: string;
+    }>;
+  };
+}
+
+const { header, projectsConfig } = Astro.props;
 const projects = projectsConfig.projects;
 ---
 
 <section class="projects-section">
   <div class="projects-container">
-    <h2 class="projects-title">Projects</h2>
+    <h2 class="projects-title">{header}</h2>
 
     <!-- ここから中身を差し替え（旧カルーセル/説明領域は削除） -->
     <div class="projects-grid">
